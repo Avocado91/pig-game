@@ -7,6 +7,11 @@ GAME RULES:
 - The player can choose to 'Hold', which means that his ROUND score gets added to his GLBAL score. After that, it's the next player's turn
 - The first player to reach 100 points on GLOBAL score wins the game
 
+CHALLENGE RULES-----
+1. A player looses his ENTIRE score when he rolls two 6's in a row. After  that, it's the next player's turn. (Hint: Always save the previous diceroll in a separate variable).
+2. Add an input field to the HTML where players can set the winning score, so that they can change the predefined score of 100. (Hint: You can read that value with the .value property in JS.).
+3. Add another dice to the game, so that there are two dices now. The player looses his current score when one of them is a 1. (Hint: You will need CSS to position the second dice, so take a look at the CSS code for the first one.)
+
 */
 
 let scores;
@@ -48,7 +53,7 @@ document.querySelector('.btn-hold').addEventListener('click', function() {
 		//update the UI
 		document.getElementById('score-' + activePlayer).textContent = scores[activePlayer];
 		//check if player won the game 
-		if (scores[activePlayer] >= 20) {
+		if (scores[activePlayer] >= 100) {
 			//end the gamePlaying
 			document.querySelector('#name-' + activePlayer).textContent = 'Winner!';
 			document.querySelector('.dice').style.display = 'none';
