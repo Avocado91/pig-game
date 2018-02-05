@@ -18,6 +18,7 @@ let scores;
 let roundScore;
 let activePlayer;
 let dice;
+let previousRoll;
 let gamePlaying = true;
 
  //initialize game
@@ -26,15 +27,21 @@ let gamePlaying = true;
 document.querySelector('.btn-roll').addEventListener('click', function() {
 	if (gamePlaying) {
 		//generate random number between 1 and 6 for the dice
-		let dice = Math.floor(Math.random() * 6) + 1;
+		let previousRoll = dice;   //capture previous roll data
+		dice = Math.floor((Math.random() * 6) + 1);  
 	
 		//display the result
 		let diceDOM = document.querySelector('.dice')
 		diceDOM.style.display  = 'block';
 		diceDOM.src = 'assets/images/dice-' + dice + '.png';
 
+		//if two 6's in a row end turn
+		if (previousRoll === 6 && dice === 6) {
+			//force end turn
+			nextPlayer();
+
 		//update round score IF the number wasn't 1
-		if (dice !== 1) {
+		} else if (dice !== 1) {
 			//add score and display in current score section
 			roundScore += dice;
 			document.querySelector('#current-' + activePlayer).textContent = roundScore;
@@ -78,6 +85,7 @@ function init() {
 	activePlayer = 0;
 	roundScore = 0;
 	gamePlaying = true;
+	dice = undefined;
 
 	//resetting UI
 	document.querySelector('.dice').style.display = 'none'; 
@@ -98,6 +106,7 @@ function init() {
 function nextPlayer() {
 	activePlayer === 0 ? activePlayer = 1 : activePlayer = 0; //switch between players when a player rolls a 1
 		roundScore = 0;
+		dice = undefined;
 		document.getElementById('current-0').textContent = '0';
 		document.getElementById('current-1').textContent = '0';
 
@@ -106,8 +115,6 @@ function nextPlayer() {
 
 		document.querySelector('.dice').style.display = 'none';
 }
-
-
 
 
 
