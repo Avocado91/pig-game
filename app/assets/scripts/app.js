@@ -9,18 +9,13 @@ GAME RULES:
 
 */
 
-let scores = [0, 0];
-let roundScore = 0;
-let activePlayer = 0;
-let dice = Math.floor(Math.random() * 6) + 1; //generate random number between 1 and 6 for the dice
+let scores,
+roundScore,
+activePlayer,
+dice;
 
-
-// setting up the game
-document.querySelector('.dice').style.display = 'none'; 
-document.getElementById('score-0').textContent = '0';
-document.getElementById('score-1').textContent = '0';
-document.getElementById('current-0').textContent = '0';
-document.getElementById('current-1').textContent = '0';
+ //initialize game
+ init();
 
 
 document.querySelector('.btn-roll').addEventListener('click', function() {
@@ -62,10 +57,39 @@ document.querySelector('.btn-hold').addEventListener('click', function() {
 	
 });
 
+//reset game with 'new game button'
+document.querySelector('.btn-new').addEventListener('click', init)
 
 
 
 
+
+
+
+
+function init() {
+	scores = [0, 0];
+	activePlayer = 0;
+	roundScore = 0;
+
+	//resetting UI
+	document.querySelector('.dice').style.display = 'none'; 
+	document.getElementById('score-0').textContent = '0';
+	document.getElementById('score-1').textContent = '0';
+	document.getElementById('current-0').textContent = '0';
+	document.getElementById('current-1').textContent = '0';
+	document.getElementById('name-0').textContent = 'Player 1';
+	document.getElementById('name-1').textContent = 'Player 2';
+	document.querySelector('.player-0-panel').classList.remove('winner');
+	document.querySelector('.player-1-panel').classList.remove('winner');
+	document.querySelector('.player-0-panel').classList.remove('active');
+	document.querySelector('.player-1-panel').classList.remove('active');
+
+	document.querySelector('.player-0-panel').classList.add('active');
+
+
+
+}
 
 function nextPlayer() {
 	activePlayer === 0 ? activePlayer = 1 : activePlayer = 0; //switch between players when a player rolls a 1
@@ -78,6 +102,7 @@ function nextPlayer() {
 
 		document.querySelector('.dice').style.display = 'none';
 }
+
 
 
 
