@@ -8,8 +8,10 @@ GAME RULES:
 - The first player to reach 100 points on GLOBAL score wins the game
 
 CHALLENGE RULES-----
-1. A player looses his ENTIRE score when he rolls two 6's in a row. After  that, it's the next player's turn. (Hint: Always save the previous diceroll in a separate variable).
-2. Add an input field to the HTML where players can set the winning score, so that they can change the predefined score of 100. (Hint: You can read that value with the .value property in JS.).
+1. A player looses his ENTIRE score when he rolls two 6's in a row. After  that, it's the next player's turn. (Hint: Always save the previous diceroll in a separate variable). --COMPLETED
+
+2. Add an input field to the HTML where players can set the winning score, so that they can change the predefined score of 100. (Hint: You can read that value with the .value property in JS).
+
 3. Add another dice to the game, so that there are two dices now. The player looses his current score when one of them is a 1. (Hint: You will need CSS to position the second dice, so take a look at the CSS code for the first one.)
 
 */
@@ -20,6 +22,7 @@ let activePlayer;
 let dice;
 let previousRoll;
 let gamePlaying = true;
+let winningScore = 100;
 
  //initialize game
  init();
@@ -60,7 +63,7 @@ document.querySelector('.btn-hold').addEventListener('click', function() {
 		//update the UI
 		document.getElementById('score-' + activePlayer).textContent = scores[activePlayer];
 		//check if player won the game 
-		if (scores[activePlayer] >= 100) {
+		if (scores[activePlayer] >= winningScore) {
 			//end the gamePlaying
 			document.querySelector('#name-' + activePlayer).textContent = 'Winner!';
 			document.querySelector('.dice').style.display = 'none';
@@ -74,8 +77,26 @@ document.querySelector('.btn-hold').addEventListener('click', function() {
 	}	
 });
 
+
+
 //reset game with 'new game button'
-document.querySelector('.btn-new').addEventListener('click', init)
+document.querySelector('.btn-new').addEventListener('click', init);
+
+
+
+//change winning score value from player input
+document.querySelector('.score-limit__btn').addEventListener('click', function() {
+  winningScore = parseInt(document.querySelector('.score-limit__input').value);
+
+  //error message if user inputs anything other than a number
+  document.querySelector('.score-limit__error').classList.remove('score-limit__error--active');
+  if (isNaN(winningScore)) {
+    document.querySelector('.score-limit__error').classList.add('score-limit__error--active');
+  } else {
+    //restart game with new winning score
+    init();
+  }
+});
 
 
 /////////////////////////////////FUNCTIONS//////////////////////////////////////
