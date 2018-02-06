@@ -22,6 +22,7 @@ let activePlayer;
 let dice;
 let previousRoll;
 let gamePlaying = true;
+let winningScore = 100;
 
  //initialize game
  init();
@@ -62,7 +63,7 @@ document.querySelector('.btn-hold').addEventListener('click', function() {
 		//update the UI
 		document.getElementById('score-' + activePlayer).textContent = scores[activePlayer];
 		//check if player won the game 
-		if (scores[activePlayer] >= 100) {
+		if (scores[activePlayer] >= winningScore) {
 			//end the gamePlaying
 			document.querySelector('#name-' + activePlayer).textContent = 'Winner!';
 			document.querySelector('.dice').style.display = 'none';
@@ -76,8 +77,26 @@ document.querySelector('.btn-hold').addEventListener('click', function() {
 	}	
 });
 
+
+
 //reset game with 'new game button'
-document.querySelector('.btn-new').addEventListener('click', init)
+document.querySelector('.btn-new').addEventListener('click', init);
+
+
+
+//change winning score value from player input
+document.querySelector('.score-limit__btn').addEventListener('click', function() {
+  winningScore = parseInt(document.querySelector('.score-limit__input').value);
+
+  //error message if user inputs anything other than a number
+  document.querySelector('.score-limit__error').classList.remove('score-limit__error--active');
+  if (isNaN(winningScore)) {
+    document.querySelector('.score-limit__error').classList.add('score-limit__error--active');
+  } else {
+    //restart game with new winning score
+    init();
+  }
+});
 
 
 /////////////////////////////////FUNCTIONS//////////////////////////////////////
