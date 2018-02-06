@@ -191,6 +191,11 @@ i {
   outline: none;
 }
 
+.score-limit__input::placeholder {
+  color: #EB4D4D;
+  opacity: 1;
+}
+
 .score-limit__btn {
   background-color: #EB4D4D;
   border: none;

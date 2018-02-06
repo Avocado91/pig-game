@@ -40,7 +40,9 @@ document.querySelector('.btn-roll').addEventListener('click', function() {
 
 		//if two 6's in a row end turn
 		if (previousRoll === 6 && dice === 6) {
-			//force end turn
+			//reset score to 0
+			scores[activePlayer] = 0;
+			document.querySelector('#score-' + activePlayer).textContent = '0';
 			nextPlayer();
 
 		//update round score IF the number wasn't 1
